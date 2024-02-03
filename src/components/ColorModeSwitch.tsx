@@ -2,7 +2,7 @@ import { HStack, Switch, Text, useColorMode } from "@chakra-ui/react";
 
 const ColorModeSwitch = () => {
   const { toggleColorMode, colorMode } = useColorMode();
-  // ]useColorMode: This is a hook provided by the Chakra UI library, which is commonly
+  // useColorMode: This is a hook provided by the Chakra UI library, which is commonly
   // used in React applications for managing color modes (such as light and dark modes).
   // { toggleColorMode, colorMode }: This part of the code uses destructuring assignment to
   //  extract two properties from the object returned by the useColorMode hook.
