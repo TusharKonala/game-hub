@@ -2,7 +2,6 @@ import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import React from "react";
 import GameGrid from "./components/GameGrid";
-// imported GameGrid
 
 function App() {
   return (
@@ -22,7 +21,6 @@ function App() {
 
       <GridItem area="main">
         <GameGrid />
-        {/* adding GameGrid in the main area */}
       </GridItem>
     </Grid>
   );
