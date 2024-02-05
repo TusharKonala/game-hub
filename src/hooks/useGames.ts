@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 
-interface Game {
+export interface Game {
     id: number;
     name: string;
+    background_image: string;
+    // each image has a property called "background_image"(refer to rawg api website)
   }
   
   interface FetchGamesResponse {
