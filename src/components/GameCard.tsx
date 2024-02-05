@@ -1,6 +1,6 @@
-import React from "react";
 import { Game } from "../hooks/useGames";
-import { Card, CardBody, Heading, Image } from "@chakra-ui/react";
+import { Card, CardBody, Heading, Image, Text } from "@chakra-ui/react";
+import PlatformIconList from "./PlatformIconList";
 
 interface Props {
   game: Game;
@@ -9,17 +9,19 @@ interface Props {
 const GameCard = ({ game }: Props) => {
   return (
     <Card borderRadius={10} overflow={"hidden"}>
-      {/* borderRadius={10}: This prop sets the border-radius of the Card component to 10 units. 
-      Border-radius controls the roundness of the corners of
-       an element. In this case, the corners of the card will have a rounded shape with a radius of 10 units. */}
-      {/* overflow property determines how content that overflows the box (in this case, the Card) 
-       should be treated. "hidden" means that any content that overflows
-        the Card will be clipped or hidden, and won't be visible outside the defined boundaries of the card. */}
       <Image src={game.background_image} />
-      {/*src:  refer to Game interface in "useGames.ts"*/}
       <CardBody>
         <Heading fontSize={"2xl"}>{game.name}</Heading>
-        {/* 2xl: 2xlarge is a specified size in chakra ui */}
+        <PlatformIconList
+          platforms={game.parent_platforms.map((p) => p.platform)}
+          // refer to the following interafces: "Game", "Platform"
+          // here parent_platforms: is an array of objects where each object has a property
+          // called "platform" and the value of this property is an object, so we are basically
+          // mapping each object to the an object which is the value of the platform property
+          // The arrow function (p) => p.platform is applied to each element (p).
+          // It extracts the value of the "platform" property from each object.
+          // The result is an array of objects where each object is the value of the "platform" property
+        ></PlatformIconList>
       </CardBody>
     </Card>
   );
