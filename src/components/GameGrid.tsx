@@ -1,30 +1,28 @@
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
 import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
+import GameCardSkeleton from "./GameCardSkeleton";
 
 const GameGrid = () => {
-  const { games, error } = useGames();
-  // function useGames() returns an object, we destructure this object to retrieve properties "games,error"
+  const { games, error, isLoading } = useGames();
+  // added "isLoading"
+
+  const skeletons = [1, 2, 3, 4, 5, 6];
+  // this array will contain 6 skeletons ie 6 blank cards
   return (
     <>
       {error && <Text>{error}</Text>}
 
       <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
+        columns={{ sm: 1, md: 2, lg: 3 }}
         padding={"10px"}
         spacing={10}
       >
-        {/* The columns prop is an object that defines the number of columns for
-       different screen sizes (responsive design).
-{ sm: 1, md: 2, lg: 3, xl: 5 } suggests that the grid will have different numbers
- of columns based on the screen size:
-sm: Small screens (probably mobile devices) will have 1 column.
-md: Medium-sized screens (tablets) will have 2 columns.
-lg: Large screens (desktops) will have 3 columns.
-xl: Extra-large screens will have 5 columns.In the context of the Chakra UI library,
- the syntax { sm: 1, md: 2, lg: 3, xl: 5 } is specific to Chakra UI's responsive utility
-  syntax for grid layouts.
- Chakra UI uses these keys (sm, md, lg, and xl) as predefined breakpoint names for different screen sizes. */}
+        {isLoading &&
+          skeletons.map((skeleton) => <GameCardSkeleton key={skeleton} />)}
+        {/* if isLoading is true then we map each skeleton ie each element of this array to 
+        GameCardskeleton
+        component*/}
         {games.map((game) => (
           <GameCard key={game.id} game={game} />
         ))}
