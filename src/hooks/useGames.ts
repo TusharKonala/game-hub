@@ -18,9 +18,6 @@ export interface Game {
     // the response object received from the server has a property called "metacritic"
     // (refer to rawg api)
   }
-  
-
-
 
   interface FetchGamesResponse {
     count: number;
