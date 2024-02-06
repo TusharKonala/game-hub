@@ -7,21 +7,19 @@ export interface Platform {
   name: string;
   slug: string;
 }
-// interface for platform object, this object consists details about the various platforms that the 
-// game is available on eg: xbox, playstation, etc
+
 
 export interface Game {
     id: number;
     name: string;
     background_image: string;
-    parent_platforms: {platform: Platform} []
-    // it is an array of objects where each object has a property called platform and this property 
-    // has a value which is an object and this object will adhere to the interface "Platform"
-    // (took info from rawg api)
+    parent_platforms: {platform: Platform} [];
+    metacritic: number;
+    // the response object received from the server has a property called "metacritic"
+    // (refer to rawg api)
   }
   
-// An interface in programming defines a set of rules that a class or
-//  object must follow. It specifies the structure by listing required properties or methods
+
 
 
   interface FetchGamesResponse {
