@@ -1,15 +1,28 @@
+import { HStack, List, ListItem, Image, Text } from "@chakra-ui/react";
 import useGenres from "../hooks/useGenres";
+import getCroppedImageUrl from "../services/image-url";
 
 const GenreList = () => {
   const { data } = useGenres();
-  // in 'useGenres.ts' we fetched data using the generic hook
 
   return (
-    <ul>
+    <List>
       {data.map((genre) => (
-        <li key={genre.id}>{genre.name}</li>
+        <ListItem key={genre.id} paddingY="5px">
+          <HStack>
+            <Image
+              boxSize="32px"
+              borderRadius={8}
+              src={getCroppedImageUrl(genre.image_background)}
+              // added src
+            />
+            <Text fontSize="lg">{genre.name}</Text>
+            {/* lg: large */}
+          </HStack>
+        </ListItem>
       ))}
-    </ul>
+    </List>
+    // List: reneders a list of items without using a bullet point
   );
 };
 
