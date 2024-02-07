@@ -28,22 +28,18 @@ const useGames = () => {
   const [error, setError] = useState("");
 
   const[isLoading, setLoading] = useState(false);
-  // we want to display a loading skeleton to improve user experience, a loading skeleton is basically
-  // a set of blank game cards that will be displayed till the actual game card is being retrieved from the 
-  // server 
+  
 
   useEffect(() => {
     const controller = new AbortController();
 
     setLoading(true);
-    // loading skeleton will be visible
-    // setting it to true before sending the request
+    
     apiClient
       .get<FetchGamesResponse>("/games", {signal: controller.signal})
 
       .then((res) => {setGames(res.data.results);
         setLoading(false)
-        // setting it to false (skeleton won't be displayed)
       })
 
       .catch((err) => {if (err instanceof CanceledError ) return;
@@ -56,7 +52,6 @@ const useGames = () => {
   },[]);
 
   return {games, error, isLoading};
-  // returning isLoading from the hook
 }
 
 export default useGames;
