@@ -20,8 +20,7 @@ export interface Game {
 const useGames = (gameQuery: GameQuery) => useData<Game>('/games',
  {params: {genres: gameQuery.genre?.id, parent_platforms: gameQuery.platform?.id}}, 
 [gameQuery]);
-// passing the entire object in the dependencies array, hence if the object changes the hook will refetch data
-// making changes
+
 
 export default useGames;
 
