@@ -1,9 +1,18 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
-import { GenreList } from "./components/GenreList.1";
+import GenreList from "./components/GenreList";
+import { useState } from "react";
+import { Genre } from "./hooks/useGenres";
 
+// we need to share the selected genre with the grid element ("main" column which consists of game cards)
+// to share the state between 2 elements (aside and main, aside consists of  genre list) we need to lift it
+// up to the closest parent element which is the current one ie "App.tsx"
 function App() {
+  const [selectedgenre, setSelectedGenre] = useState<Genre | null>(null);
+  // declaring a state variable to store the selected genre
+  // <Genre | null>: specifies that this variable can hold a genre object or a null object
+
   return (
     <Grid
       templateAreas={{
@@ -12,13 +21,8 @@ function App() {
       }}
       templateColumns={{
         base: "1fr",
-        // we have only one column("main"), hence 1fr will occupy the entire space
         lg: "200px 1fr",
-        // here we have two columns ("aside" and "main")
-        // width of aside is 200px and width of main is 1fr(main column will occupy the entire space that
-        // is left after the required space is allocated to aside column )
       }}
-      // templateColumns: used to set the width of columns
     >
       <GridItem area="nav">
         <NavBar />
@@ -26,16 +30,16 @@ function App() {
 
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
-          {/* this container contains the list of genres, 
-          in order to have ample amount of space between the list items and the border of the screen
-          we set horizontal padding ie paddingX to 5 */}
-          <GenreList />
-          {/* adding list of genres */}
+          <GenreList onSelectGenre={(genre) => setSelectedGenre(genre)} />
+          {/* You are rendering the GenreList component and passing a prop called onSelectGenre to it. 
+          The onSelectGenre prop is a function that takes a genre as its argument
+           and sets the selected genre in the state using setSelectedGenre(genre). */}
         </GridItem>
       </Show>
 
       <GridItem area="main">
-        <GameGrid />
+        <GameGrid selectedGenre={selectedgenre} />
+        {/* {selectedGenre}: the state variable that holds the currently selected genre */}
       </GridItem>
     </Grid>
   );

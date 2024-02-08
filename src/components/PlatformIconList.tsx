@@ -53,7 +53,7 @@ const PlatformIconList = ({ platforms }: Props) => {
     <HStack marginY={1}>
       {/* add a vertical margin of 4px (1 represents 4px) */}
       {platforms.map((platform) => (
-        <Icon as={iconMap[platform.slug]} color="gray.500" />
+        <Icon key={platform.id} as={iconMap[platform.slug]} color="gray.500" />
         // refer to the interface called "Platform" in "useGames.t"
         // we are passing the key dynamically using "platform.slug"
         // []: represnts indexing, we are passing the key inside this to get the corresponding value

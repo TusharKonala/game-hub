@@ -1,16 +1,31 @@
-import { HStack, List, ListItem, Image, Text, Spinner } from "@chakra-ui/react";
-import useGenres from "../hooks/useGenres";
+import {
+  HStack,
+  List,
+  ListItem,
+  Image,
+  Spinner,
+  Button,
+} from "@chakra-ui/react";
+import useGenres, { Genre } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 
-const GenreList = () => {
+// we will sort the list of games based on the selected genre
+
+interface Props {
+  onSelectGenre: (genre: Genre) => void;
+  // it takes a an object of type "Genre" and returns void
+}
+// we are going to pass the selected genre to the app component, there we will be able to dictate
+// the action that
+// should be taken when the genre is selected, we can't do it here bcos the app component is the one that holds
+// the state variable hence it should be the one updating it
+
+const GenreList = ({ onSelectGenre }: Props) => {
   const { data, isLoading, error } = useGenres();
-  // we retrieved the property "isLoading"
 
   if (error) return null;
-  // we dont want too many error messages hence returning null
+
   if (isLoading) return <Spinner />;
-  // if isloading is true we display a spinner ie we render buffer icon till the genre list
-  // is being retrieved from the server
 
   return (
     <List>
@@ -22,7 +37,14 @@ const GenreList = () => {
               borderRadius={8}
               src={getCroppedImageUrl(genre.image_background)}
             />
-            <Text fontSize="lg">{genre.name}</Text>
+            <Button
+              onClick={() => onSelectGenre(genre)}
+              fontSize="lg"
+              variant="link"
+            >
+              {genre.name}
+            </Button>
+            {/* variant="Link": our button will look like links*/}
           </HStack>
         </ListItem>
       ))}
