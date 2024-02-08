@@ -1,5 +1,5 @@
+import { GameQuery } from "../App";
 import useData from "./useData";
-import { Genre } from "./useGenres";
 
 export interface Platform {
   id: number;
@@ -17,9 +17,11 @@ export interface Game {
   }
 
 
-const useGames = (selectedGenre: Genre | null, selectedPlatform: Platform | null) => useData<Game>('/games',
- {params: {genres: selectedGenre?.id, platforms: selectedPlatform?.id}}, 
-[selectedGenre?.id, selectedPlatform?.id]);
+const useGames = (gameQuery: GameQuery) => useData<Game>('/games',
+ {params: {genres: gameQuery.genre?.id, parent_platforms: gameQuery.platform?.id}}, 
+[gameQuery]);
+// passing the entire object in the dependencies array, hence if the object changes the hook will refetch data
+// making changes
 
 export default useGames;
 

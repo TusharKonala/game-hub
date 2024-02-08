@@ -7,12 +7,17 @@ import { Genre } from "./hooks/useGenres";
 import PlatformSelector from "./components/PlatformSelector";
 import { Platform } from "./hooks/useGames";
 
+export interface GameQuery {
+  genre: Genre | null;
+  platform: Platform | null;
+}
+
 function App() {
-  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
-  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
-    null
-  );
-  // to understand this refer to "FilterGames" screenshots
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
+  // previously we had multiple state variables,it causes a lot of clutter, to avoid it
+  // made an interface and passed those variables as properties
+  // {} as GameQuery: the initial value of gameQuery is an empty object that adheres to the GameQuery
+  // interface
 
   return (
     <Grid
@@ -32,23 +37,24 @@ function App() {
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
           <GenreList
-            selectedGenre={selectedGenre}
-            onSelectGenre={(genre) => setSelectedGenre(genre)}
+            selectedGenre={gameQuery.genre}
+            onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
+            // making neccessary changes
           />
         </GridItem>
       </Show>
 
       <GridItem area="main" paddingX={5}>
         <PlatformSelector
-          selectedPlatform={selectedPlatform}
-          // we are passing the selected platform to platform selector in order to change the
-          // text of the button
-          onSelectPlatform={(platform) => setSelectedPlatform(platform)}
+          selectedPlatform={gameQuery.platform}
+          onSelectPlatform={
+            (platform) => setGameQuery({ ...gameQuery, platform })
+            //...gameQuery: copying existing properties of gameQuery into a new object
+            // platform: adding a new property called "platform" to this object
+          }
         />
-        <GameGrid
-          selectedPlatform={selectedPlatform}
-          selectedGenre={selectedGenre}
-        />
+        <GameGrid gameQuery={gameQuery} />
+        {/* making neccessary changes */}
       </GridItem>
     </Grid>
   );
