@@ -5,9 +5,14 @@ import GenreList from "./components/GenreList";
 import { useState } from "react";
 import { Genre } from "./hooks/useGenres";
 import PlatformSelector from "./components/PlatformSelector";
+import { Platform } from "./hooks/useGames";
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
+  const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(
+    null
+  );
+  // to understand this refer to "FilterGames" screenshots
 
   return (
     <Grid
@@ -34,9 +39,16 @@ function App() {
       </Show>
 
       <GridItem area="main" paddingX={5}>
-        <PlatformSelector />
-        {/* adding platform selector above the game grid */}
-        <GameGrid selectedGenre={selectedGenre} />
+        <PlatformSelector
+          selectedPlatform={selectedPlatform}
+          // we are passing the selected platform to platform selector in order to change the
+          // text of the button
+          onSelectPlatform={(platform) => setSelectedPlatform(platform)}
+        />
+        <GameGrid
+          selectedPlatform={selectedPlatform}
+          selectedGenre={selectedGenre}
+        />
       </GridItem>
     </Grid>
   );

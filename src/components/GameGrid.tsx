@@ -1,5 +1,5 @@
 import { SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
-import useGames from "../hooks/useGames";
+import useGames, { Platform } from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
@@ -7,12 +7,11 @@ import { Genre } from "../hooks/useGenres";
 
 interface Props {
   selectedGenre: Genre | null;
+  selectedPlatform: Platform | null;
 }
-// in the app component there is a state variable that holds the slected
-// genre, so we will pass it to the grid in order to display the game cards according to the selected genre
 
-const GameGrid = ({ selectedGenre }: Props) => {
-  const { data, error, isLoading } = useGames(selectedGenre);
+const GameGrid = ({ selectedGenre, selectedPlatform }: Props) => {
+  const { data, error, isLoading } = useGames(selectedGenre, selectedPlatform);
 
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
   return (
