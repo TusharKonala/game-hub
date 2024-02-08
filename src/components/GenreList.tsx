@@ -9,18 +9,14 @@ import {
 import useGenres, { Genre } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 
-// we will sort the list of games based on the selected genre
-
 interface Props {
   onSelectGenre: (genre: Genre) => void;
-  // it takes a an object of type "Genre" and returns void
+  selectedGenre: Genre | null;
 }
-// we are going to pass the selected genre to the app component, there we will be able to dictate
-// the action that
-// should be taken when the genre is selected, we can't do it here bcos the app component is the one that holds
-// the state variable hence it should be the one updating it
 
-const GenreList = ({ onSelectGenre }: Props) => {
+// we will pass the selected genre from the app component to genre list to highlight the selected genre
+
+const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
   const { data, isLoading, error } = useGenres();
 
   if (error) return null;
@@ -38,13 +34,14 @@ const GenreList = ({ onSelectGenre }: Props) => {
               src={getCroppedImageUrl(genre.image_background)}
             />
             <Button
+              fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
+              // making the text bold to highlight the selected genre
               onClick={() => onSelectGenre(genre)}
               fontSize="lg"
               variant="link"
             >
               {genre.name}
             </Button>
-            {/* variant="Link": our button will look like links*/}
           </HStack>
         </ListItem>
       ))}
