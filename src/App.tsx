@@ -11,6 +11,7 @@ import SortSelector from "./components/SortSelector";
 export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
+  sortOrder: string;
 }
 
 function App() {
@@ -48,9 +49,18 @@ function App() {
               setGameQuery({ ...gameQuery, platform })
             }
           />
-          <SortSelector />
+          <SortSelector
+            sortOrder={gameQuery.sortOrder}
+            // to change the text of the button according to the selected sorting type
+            // we pass this value to the sortselecter component
+            onSelectSortOrder={(sortOrder) =>
+              setGameQuery({ ...gameQuery, sortOrder })
+            }
+            // adding the prop and actually defining the working of the function
+            // The (sortOrder) is essentially just a parameter name chosen for the function,
+            // indicating that it represents the selected sorting order.
+          />
         </HStack>
-        {/* added sort selector */}
         <GameGrid gameQuery={gameQuery} />
       </GridItem>
     </Grid>
