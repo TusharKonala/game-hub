@@ -1,7 +1,9 @@
-
+import noImage from '../assets/no-image-placeholder-6f3882e0.webp'
 
 const getCroppedImageUrl = (url: String) => {
-    if (!url) return ' ';
+    if (!url) return noImage;
+    // if the game has no image then this pic will be displayed
+    
     const target = 'media/';
     const index = url.indexOf(target) + target.length;
     
