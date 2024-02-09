@@ -12,6 +12,8 @@ export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
   sortOrder: string;
+  searchText: string;
+  // added
 }
 
 function App() {
@@ -29,7 +31,28 @@ function App() {
       }}
     >
       <GridItem area="nav">
-        <NavBar />
+        <NavBar
+          onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })}
+        />
+        {/* <NavBar> Component: */}
+        {/* You are rendering an instance of the NavBar component.
+onSearch Prop:
+The onSearch prop is passed to the NavBar component. This prop is a function that
+ handles search functionality.
+Arrow Function in onSearch:
+The onSearch prop is assigned an arrow function that takes a parameter 
+searchText. This parameter represents the text entered by the user when searching for games.
+setGameQuery Function:
+Inside the arrow function, setGameQuery is called. It seems to be a function 
+that sets the state of the gameQuery object.
+Updating gameQuery:
+The setGameQuery function is used to update the gameQuery state by spreading 
+the existing properties and updating the searchText property with the new value
+ (searchText entered by the user). */}
+        {/* so basically navbar controls the searchInput 
+ bcos its the parent of searchInput, search input
+ tells us what to do with the input when onSubmit event occurs and app is where the actual input
+ is being passed */}
       </GridItem>
 
       <Show above="lg">
@@ -58,7 +81,6 @@ function App() {
             }
           />
         </Flex>
-        {/* used flex here instaed of hstack bcos of errors */}
         <GameGrid gameQuery={gameQuery} />
       </GridItem>
     </Grid>
