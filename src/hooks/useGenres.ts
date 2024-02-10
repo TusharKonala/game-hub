@@ -1,16 +1,17 @@
 
-import useData from "./useData";
+import genres from "../data/genres";
+
+// we don't want to send an additional request to fetch the genre list instaed we copied the response object in
+// genres.ts, hence we can render it without making an additonal request
 
 export interface Genre {
     id: number;
     name: string;
     image_background: string;
-    // each genre object retrieved from the server has a property called "background_image"
-    // which contains the link of an image which represents the genre (refer to rawg api)
 }
 
 
-const useGenres = () => useData<Genre>('/genres');
+const useGenres = () => ({data: genres, isLoading: false, error: null})
 
 
 export default useGenres;
