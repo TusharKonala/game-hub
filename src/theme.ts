@@ -22,9 +22,6 @@ colors: {
     }
 }});
 
-// we are customizing the theme, we are mapping different shades of grey(50,100,etc) to our preferred shades
-// for eg: 50 is assigned the value #f9f9f9 (gray is an object with keys ie properties like
-// 50,100, etc whic represents its different shades)
 
 
 export default theme;
